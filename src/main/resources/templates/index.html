@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+
+    <link rel="stylesheet"
+          href="../static/css/bootstrap-4.0.0/css/bootstrap.min.css"
+          th:href="@{/css/bootstrap-4.0.0/css/bootstrap.min.css}"/>
+
+    <link rel="stylesheet"
+          href="../static/css/fontawesome-free-5.0.9/web-fonts-with-css/css/fontawesome-all.min.css"
+          th:href="@{/css/fontawesome-free-5.0.9/web-fonts-with-css/css/fontawesome-all.min.css}"/>
+
+    <link rel="stylesheet"
+          media="screen"
+          th:href="@{css/main.css}"
+          href="../static/css/main.css"/>
+
+    <script src="../static/css/bootstrap-4.0.0/js/bootstrap.min.js"
+            th:src="@{/css/bootstrap-4.0.0/js/bootstrap.min.js}"></script>
+
+    <script src="../static/css/jquery-3.3.1.min.js"
+            th:src="@{/css/jquery-3.3.1.min.js}"></script>
+
+</head>
+<body>
+
+
+<div class="container">
+    <h1>LOGGER DEMO</h1>
+
+    <p th:text="'Anzahl Hosts in der Datenbank: ' + ${hosts.size()}"></p>
+
+    <h2>Host List</h2>
+
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Active</th>
+            <th>Name</th>
+            <th>Hostname</th>
+            <th>Port</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="host : ${hosts}">
+            <td th:text="${host.active}">active</td>
+            <td th:text="${host.name}">name</td>
+            <td th:text="${host.hostName}">hostname</td>
+            <td th:text="${host.port}">port</td>
+            <td th:text="${host.status}">status</td>
+            <td>
+                <a href="#" th:href="@{'/host/' + ${host.name}}" class="fa fa-edit" title="Edit Host"></a> |
+                <a href="#" th:href="@{'/host/' + ${host.name} +'/delete'}" class="fa fa-remove" title="Delete Host"></a> |
+                <a href="#" th:href="@{'/host/' + ${host.name} +'/stop'}" th:if="${host.running}" class="fa fa-stop red" title="Stop logging"></a>
+                <a href="#" th:href="@{'/host/' + ${host.name} +'/start'}" th:unless="${host.running}" class="fa fa-play green" title="Start logging"></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="btn-group" role="group">
+        <a href="/host" class="btn btn-default"><span class="fa fa-plus-circle"></span> Add Host</a>
+        <a href="http://google.com" class="btn btn-default"><span class="fas fa-recycle"></span> Go to Google</a>
+    </div>
+
+</div>
+
+</body>
+</html>
